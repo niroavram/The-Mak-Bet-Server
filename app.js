@@ -4,21 +4,19 @@ const mongoose = require("mongoose");
 const { MONGOURI } = require("./key");
 const PORT = process.env.PORT || 5000;
 const cors = require("cors");
-app.use(cors());
+app.use(cors("http://localhost:3000/"||"https://www.beenyan.com/"));
 
-mongoose.connect(MONGOURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(MONGOURI,{
+  useNewUrlParser:true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log("Successfully connect to MongoDB.");
+})
+.catch(err => {
+  console.error("Connection error", err);
+  process.exit();
 });
-
-mongoose.connection.on("connected", () => {
-  console.log("connected to mongo yeah");
-});
-
-mongoose.connection.on("error", (err) => {
-  console.log("err connecting", err);
-});
-
 
 require("./models/Event");
 require("./models/Game");
