@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 5000;
 const { MONGOURI } = require("./key");
+const PORT = process.env.PORT || 5000;
 const cors = require("cors");
 app.use(cors());
 
@@ -48,6 +48,8 @@ app.use(authUser,authToto,authGame,authEvent,authLeague);
   //   finishGames();
   //   }, 1000*15,);
   Testing()
-app.listen(PORT, () => {
-  console.log("server is running on", PORT);
-});
+
+app.listen(PORT,()=>{
+    console.log("server running on PORT",PORT)
+})
+
