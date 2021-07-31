@@ -8,6 +8,7 @@ const api_url = "https://api-football-v1.p.rapidapi.com/v3/fixtures";
 exports.FinishGames = function (gamesInplay) {
   League.find().then((result) => {
     var inplayA;
+    let isFinish = false
     for (var i = 0; i < result.length; i++) { 
        inplayA = result[i].inplay;
       for (var m = 0; m < inplayA.length; m++) {
@@ -17,7 +18,7 @@ exports.FinishGames = function (gamesInplay) {
           if(!game){
             console.log(game)
           }else{         
-         let isFinish = true
+       
          for(var l=0;l<gamesInplay.length;l++){
            if(game.game_id==gamesInplay[l]){
              isFinish=false

@@ -21,7 +21,7 @@ new mongoose.Schema({
         type: Number,
         default: 0
     },
-    gameByApi:{
+    gameApi:{
         type: ObjectId,
           ref: "Game"
     },

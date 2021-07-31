@@ -29,7 +29,7 @@ new mongoose.Schema({
         type: Number,
         required:true
     },
-    gameEvents:[{
+    gamesEvent:[{
         type:ObjectId,
         ref:"UserBets"
     }],

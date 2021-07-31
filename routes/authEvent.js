@@ -3,6 +3,8 @@ const Router = express.Router();
 const mongoose = require("mongoose");
 const Event = mongoose.model("Event");
 const UserBets = mongoose.model("UserBets");
+const GameEvent = mongoose.model("GameEvent");
+
 // mongoose.set("useFindAndModify", false);
 const requireLogin = require("../middleware/requireLogin");
 
@@ -13,6 +15,7 @@ const games = [
     startHomeTeam: 0,
     startAwayTeam: 0,
     startGame: "2017-04-25T06:23:36.510Z",
+    gameApi: "60d9d38845165620ec6df5bc",
     bet: [0, 0, 0],
   },
   {
@@ -21,6 +24,7 @@ const games = [
     startHomeTeam: 0,
     startAwayTeam: 0,
     startGame: "2017-04-25T06:23:36.510Z",
+    gameApi: "60d9d38845165620ec6df5bc",
     bet: [0, 0, 0],
   },
   {
@@ -29,30 +33,25 @@ const games = [
     startHomeTeam: 0,
     startAwayTeam: 0,
     startGame: "2017-04-25T06:23:36.510Z",
+    gameApi: "60d9d38845165620ec6df5bc",
     bet: [0, 0, 0],
   },
   {
-    homeTeam: "Fulham",
+    homeTeam: "First",
     awayTeam: "Arsenal",
     startHomeTeam: 0,
     startAwayTeam: 0,
-    startGame: "2015-04-25T06:23:36.510Z",
+    startGame: "2016-04-25T06:23:36.510Z",
+    gameApi: "60d9d38845165620ec6df5bc",
     bet: [0, 0, 0],
   },
   {
-    homeTeam: "Fulham",
+    homeTeam: "Last",
     awayTeam: "Arsenal",
     startHomeTeam: 0,
     startAwayTeam: 0,
-    startGame: "2017-04-25T06:23:36.510Z",
-    bet: [0, 0, 0],
-  },
-  {
-    homeTeam: "Fulham",
-    awayTeam: "Arsenal",
-    startHomeTeam: 0,
-    startAwayTeam: 0,
-    startGame: "2018-04-25T06:23:36.510Z",
+    startGame: "2022-04-25T06:23:36.510Z",
+    gameApi: "60d9d38845165620ec6df5bc",
     bet: [0, 0, 0],
   },
 ];
@@ -63,21 +62,37 @@ Router.post("/create-newevent", requireLogin, (req, res) => {
     return res.status(422).json({ error: "Please add all the fields" });
   }
 
-  var i = 1,
-    firstGame,
-    lastGame;
+  var i = 1,firstGame, lastGame;
   firstGame = games[0].startGame;
   lastGame = games[0].startGame;
-
+  const gamesEvent = [];
   while (i < games.length) {
-    if (firstGame > games[i].startGame) {
-      firstGame = games[i].startGame;
+    const {
+      homeTeam,
+      awayTeam,
+      startAwayTeam,
+      startHomeTeam,
+      gameApi,
+      startGame,
+    } = games[i];
+    var game = new GameEvent({
+      homeTeam,
+      awayTeam,
+      startAwayTeam,
+      startHomeTeam,
+      gameApi,
+      startGame,
+    });
+    gamesEvent.push(game);
+    if (firstGame > startGame) {
+      firstGame = startGame;
     }
-    if (lastGame < games[i].startGame) {
-      lastGame = games[i].startGame;
+    if (lastGame < startGame) {
+      lastGame = startGame;
     }
     i++;
   }
+
   const event = new Event({
     firstGame,
     lastGame,
@@ -85,7 +100,7 @@ Router.post("/create-newevent", requireLogin, (req, res) => {
     doubles,
     triangles,
     price,
-    gameEvents: games,
+    gamesEvent: games,
   });
   event
     .save()
@@ -120,17 +135,15 @@ Router.put("/create-userbets", requireLogin, (req, res) => {
   if (doubles != countDoubles || triangles != countTriangles) {
     return res.status(422).json({ error: "Please stand in rules" });
   }
-console.log(req.user)
+  console.log(req.user);
   const userbet = new UserBets({
     created_by: req.user,
     mask,
     gameEvents: gameEvents,
   });
-  userbet
-    .save()
-    .catch((err) => {
-      console.log(err);
-    });
+  userbet.save().catch((err) => {
+    console.log(err);
+  });
   Event.findByIdAndUpdate(
     eventId,
     {
@@ -149,17 +162,16 @@ console.log(req.user)
 });
 
 Router.get("/get-userbets/:eventId", requireLogin, (req, res) => {
-  const {eventId}= req.params
-  Event.find({_id: eventId})
-    .then((event)=>{
-      UserBets.find({ '_id': { $in: event[0].userBets} })
-        .then((userGamesbet)=>{
-          res.json({event,userGamesbet})
-        })
-        
-       .catch((err) => {
-          res.json(err);
-        });
+  const { eventId } = req.params;
+  Event.find({ _id: eventId }).then((event) => {
+    UserBets.find({ _id: { $in: event[0].userBets } })
+      .then((userGamesbet) => {
+        res.json({ event, userGamesbet });
+      })
+
+      .catch((err) => {
+        res.json(err);
       });
+  });
 });
 module.exports = Router;
