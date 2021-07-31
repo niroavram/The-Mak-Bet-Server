@@ -56,7 +56,7 @@ const games = [
   },
 ];
 
-Router.post("/create-newevent", requireLogin, (req, res) => {
+Router.post("/create-newevent", (req, res) => {
   const { isMask, doubles, triangles, price } = req.body;
   if ((!doubles, !isMask, !triangles, !price)) {
     return res.status(422).json({ error: "Please add all the fields" });
