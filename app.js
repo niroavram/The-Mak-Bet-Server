@@ -34,8 +34,12 @@ var authGame = require("./routes/authGame")
 var authToto = require("./routes/authToto")
 var authLeague = require("./routes/authLeagues")
 var authEvent = require("./routes/authEvent")
+var authUserbets = require("./routes/authUserbets")
+
 app.use(express.json());
-app.use(authUser,authToto,authGame,authEvent,authLeague);
+app.use(authUser,authToto,authGame);
+app.use(authEvent,authLeague,authUserbets);
+
 // setInterval(function() {
 //   collectGamesApi();
 //   }, 1000*60*60*5,);

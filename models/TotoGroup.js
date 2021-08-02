@@ -22,7 +22,6 @@ const totoGroupSchema = mongoose.model(
     ],
     isPublic: {
       type: Boolean,
-      required: true,
     },
     photo: {
       type: String,

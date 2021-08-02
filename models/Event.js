@@ -31,7 +31,7 @@ new mongoose.Schema({
     },
     gamesEvent:[{
         type:ObjectId,
-        ref:"UserBets"
+        ref:"GameEvent"
     }],
     userBets:[{
         type:ObjectId,

@@ -8,7 +8,7 @@ new mongoose.Schema({
 
     isActive:{
         type:Boolean,
-        default: false
+        default: true
     },
     totalPrice:{
         type: Number,
@@ -29,6 +29,10 @@ new mongoose.Schema({
     totoGroupFather:{
         type: ObjectId,
           ref: "TotoGroup"
+    },
+    group_id:{
+        type: ObjectId,
+        ref: "TotoGame"
     }
 })
 )
