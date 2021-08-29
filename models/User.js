@@ -21,15 +21,7 @@ new mongoose.Schema({
     }
 
 
-    // resetToken: String,
-    // expireToken: Date,
-    // mylike:[{type:ObjectId,ref:"Deal"}],
-    // roles: [
-    //     {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       ref: "Role"
-    //     }
-    // ],
+
 
 })
 )

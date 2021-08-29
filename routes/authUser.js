@@ -9,7 +9,7 @@ const {JWT_SECRET} = require('../key')
 
 
 Router.post('/signup',(req,res)=>{
-    const {email,password} = req.body
+    const {username,email,password} = req.body
     if(!email || !password  ){
         return res.status(422).json({error:"please add all the fields"})
     }
@@ -21,6 +21,7 @@ Router.post('/signup',(req,res)=>{
         bcrypt.hash(password,12)
         .then(hashedpassword=>{
                 const user = new User({
+                    username,
                     email,
                     password:hashedpassword,
                 })
