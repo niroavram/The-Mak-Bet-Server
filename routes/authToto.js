@@ -53,7 +53,7 @@ Router.post("/create-toto-group",requireLogin, (req, res) => {
           if (err) {
           return res.status(422).json({ error: err });
           } else {
-            res.status(200).json({ message: "Mazal Tov You are in the group" });
+            res.status(200).json({ totogroup: result,message: "Mazal Tov You are in the group" });
           }
         });
       
