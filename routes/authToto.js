@@ -6,26 +6,35 @@ const TotoGroup = mongoose.model("TotoGroup");
 const requireLogin = require('../middleware/requireLogin')
 
 Router.post("/create-toto-group",requireLogin, (req, res) => {
-    const {name,isPublic,code} = req.body;
-    if (!name,!code) {
+    const {name,isPublic} = req.body;
+    if (!name) {
       return res.status(422).json({ error: "Please add all the fields" });
     }
-    const totoGroup = new TotoGroup({
-      name,
-      code,
-      isPublic,
-      admins: [req.user],
-      myUsers: [req.user]
-    });
-    totoGroup
-      .save()
-      .then((result) => {
-        console.log(result);
-        res.json({ totogroup: result });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const code = Math.random().toString(36).slice(-8);
+    TotoGroup.findOne({code:code})
+    .then((savedUser)=>{
+        if(savedUser){
+             code = Math.random().toString(36).slice(-8);
+        }
+        const totoGroup = new TotoGroup({
+          name,
+          code,
+          isPublic,
+          admins: [req.user],
+          myUsers: [req.user]
+        });
+        totoGroup
+          .save()
+          .then((result) => {
+            console.log(result);
+            res.json({ totogroup: result });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    })
+
+    
   });
 
   Router.put("/join-toto-group",requireLogin, (req, res) => {
