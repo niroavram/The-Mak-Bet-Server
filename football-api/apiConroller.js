@@ -72,7 +72,8 @@ const {FinishGames} = require('./FinishGames')
 const {Testing} = require('./Testing')
 
   exports.collectGamesApi =async () => {
-	for(var i=0;i<1;i++){
+
+	for(var i=0;i<leagues_id.length;i++){
 		CollectGames(leagues_id[i].id)
     }
 
@@ -88,7 +89,7 @@ const {Testing} = require('./Testing')
 	}else{
 		console.lof("false")
 	}
-}
+}	
 exports.Testing = async () => {
 	Testing()
 }

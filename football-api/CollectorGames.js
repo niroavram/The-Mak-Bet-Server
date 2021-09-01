@@ -62,11 +62,10 @@ req.end(function (res) {
 						.catch((err) => {
 							console.log(err);
 						})
-						console.log(new_game)
 						League.findOneAndUpdate(
 							{league_id: element.league.id},
 							{
-							$push: { upcoming: new_game._id },
+							$push: { upcoming: new_game },
 							},
 							{
 							new: true,
@@ -75,6 +74,7 @@ req.end(function (res) {
 								if (err) {
 								return res.status(422).json({ error: err });
 								} else {
+									console.log("done")
 								}
 							});
 
