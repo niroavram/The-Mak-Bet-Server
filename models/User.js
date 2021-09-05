@@ -19,10 +19,6 @@ new mongoose.Schema({
         type:Number,
         default: 10000
     }
-
-
-
-
 })
 )
 module.exports = userSchema;

@@ -55,6 +55,7 @@ Router.post("/create-game-event",requireLogin, (req, res) => {
   });
   Router.get("/gameByID", requireLogin, (req, res) => {
     const {gameID}= req.body
+    console.log(gameID)
     Game.findById(gameID)
       .then((event)=>{
         res.json(event);

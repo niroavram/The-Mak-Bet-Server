@@ -74,6 +74,7 @@ if(gameee==""){
   });
   Router.get("/leagues", (req, res) => {
     League.find()
+    .populate("upcoming","inplay","played")
     .then((leagues)=>{
      res.json(leagues);
     })
@@ -82,4 +83,15 @@ if(gameee==""){
      });
       
      });
+     Router.get("/league", (req, res) => {
+      League.find({league_id: 61})
+      .populate("upcoming")
+      .then((leagues)=>{
+       res.json(leagues);
+      })
+      .catch((err) => {
+         console.log(err);
+       });
+        
+       });
   module.exports = Router

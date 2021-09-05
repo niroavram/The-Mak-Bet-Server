@@ -72,10 +72,11 @@ const {FinishGames} = require('./FinishGames')
 const {Testing} = require('./Testing')
 
   exports.collectGamesApi =async () => {
+	CollectGames(61)
 
-	for(var i=0;i<leagues_id.length;i++){
-		CollectGames(leagues_id[i].id)
-    }
+	// for(var i=0;i<leagues_id.length;i++){
+	// 	CollectGames(leagues_id[i].id)
+    // }
 
   }
   exports.updateGames = async () => {

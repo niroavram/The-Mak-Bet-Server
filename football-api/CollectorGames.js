@@ -17,7 +17,7 @@ exports.CollectGames = function(league_id) {
 var req = unirest("GET", api_url);
 req.query({
 	"league": league_id,
-	"next": "20",
+	"next": "21",
     "timezone": "Asia/Jerusalem"
 });
 
@@ -37,7 +37,7 @@ req.end(function (res) {
 			if (err) {
 				console.log(err);
 			  } else {
-					if(result==""){
+					if(result.length){
 						var league=element.league.name
 						var league_id=element.league.id
 						var game_id=element.fixture.id
@@ -62,6 +62,7 @@ req.end(function (res) {
 						.catch((err) => {
 							console.log(err);
 						})
+						// console.log("adsasdasdasddsasadsda",new_game)
 						League.findOneAndUpdate(
 							{league_id: element.league.id},
 							{
@@ -71,14 +72,16 @@ req.end(function (res) {
 							new: true,
 							})
 							.exec((err, result) => {
+								console.log(new_game)
 								if (err) {
 								return res.status(422).json({ error: err });
 								} else {
-									console.log("done")
+									// console.log("New result", result)
 								}
 							});
 
 					}else{
+						console.log("errrr")
 					}
 			}
 		})
