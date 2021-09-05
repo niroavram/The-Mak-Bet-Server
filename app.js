@@ -49,9 +49,9 @@ app.use(authEvent,authLeague,authUserbets);
   // setInterval(function() {
   //   finishGames();
   //   }, 1000*15,);
-  let S="id,name,age\n1,Jack,68"
-  let C="age"
-  Testing(S,C)
+  // let S="id,name,age\n1,Jack,68"
+  // let C="age"
+  // Testing(S,C)
 
 app.listen(PORT,()=>{
     console.log("server running on PORT",PORT)
