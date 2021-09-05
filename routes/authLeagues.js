@@ -74,7 +74,7 @@ if(gameee==""){
   });
   Router.get("/leagues", (req, res) => {
     League.find()
-    .populate("upcoming","inplay","played")
+    .populate("upcoming")
     .then((leagues)=>{
      res.json(leagues);
     })
