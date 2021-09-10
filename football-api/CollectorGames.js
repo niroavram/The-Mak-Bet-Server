@@ -37,7 +37,7 @@ req.end(function (res) {
 			if (err) {
 				console.log(err);
 			  } else {
-					if(result.length){
+					if(result.length<1){
 						var league=element.league.name
 						var league_id=element.league.id
 						var game_id=element.fixture.id
@@ -62,7 +62,6 @@ req.end(function (res) {
 						.catch((err) => {
 							console.log(err);
 						})
-						// console.log("adsasdasdasddsasadsda",new_game)
 						League.findOneAndUpdate(
 							{league_id: element.league.id},
 							{
@@ -81,7 +80,7 @@ req.end(function (res) {
 							});
 
 					}else{
-						console.log("errrr")
+						console.log("game is already exist")
 					}
 			}
 		})

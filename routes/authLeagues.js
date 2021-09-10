@@ -72,7 +72,7 @@ if(gameee==""){
   });
    
   });
-  Router.get("/leagues", (req, res) => {
+  Router.get("/leagues-upcoming", (req, res) => {
     League.find()
     .populate("upcoming")
     .then((leagues)=>{

@@ -1,22 +1,30 @@
+const mongoose = require("mongoose");
+const League = mongoose.model("League");
+const Game = mongoose.model("Game");
+
 exports.Testing = function () {
-  const after = [
-    [2, 5],
-    [7, 17],
-  ];
-  const before = after;
-  for (var i = 0; i < after.length; i++) {
-    for (var l = 0; l < after[i].length; l++) {
-      for (var m = 0; m <= i; m++) {
-        for (var n = 0; n <= l; n++) {
-          if ((i === m && l === n) || (i === 0 && l === 0)) {
-          } else {
-            before[i][l] = before[i][l] - before[m][n];
-          }
-        }
+
+  League.findOneAndUpdate(
+    { upcoming: "61388a3d5e2ec35314e6" },
+    {
+      $pull: { upcoming: "61388a3d5e2ec35314e6" },
+    },
+    { new: true },
+    (err, doc) => {
+      if (err) {
+        console.log("hey");
+      } else {
+        console.log(doc);
       }
     }
-  }
-  console.log(before);
+  );
+ League.find({upcoming: "61388a3d5e2ec35314e6"})
+ .then((leagues)=>{
+  console.log(leagues);
+ })
+ .catch((err) => {
+    console.log("err");
+  });
 };
 
 // function bef (before, value, m ,n){

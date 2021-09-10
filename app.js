@@ -51,7 +51,7 @@ app.use(authEvent,authLeague,authUserbets);
   //   }, 1000*15,);
   // let S="id,name,age\n1,Jack,68"
   // let C="age"
-  // Testing(S,C)
+  // Testing()
 
 app.listen(PORT,()=>{
     console.log("server running on PORT",PORT)
