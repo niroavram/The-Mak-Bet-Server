@@ -23,3 +23,4 @@ new mongoose.Schema({
 })
 )
 module.exports = userBetsSchema;
+

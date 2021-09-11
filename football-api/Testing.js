@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const userBetsSchema = require("../models/UserBets");
 const League = mongoose.model("League");
 const Game = mongoose.model("Game");
 
@@ -13,6 +14,11 @@ exports.Testing = function () {
     (err, doc) => {
       if (err) {
         console.log("hey");
+        userBets.filter(bets=>{
+          (bets.gameEvents).every(game=>{
+            
+          })
+        })
       } else {
         console.log(doc);
       }
