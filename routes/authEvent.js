@@ -60,10 +60,8 @@ const requireLogin = require("../middleware/requireLogin");
 
 Router.post("/create-newevent",requireLogin,(req, res) => {
   const { isMask, doubles, triangles, price, isActive, group_id,mygames } = req.body;
-  doubles = parseInt(doubles)
-  triangles = parseInt(triangles)
-  price = parseInt(price)
   const games = mygames
+  console.log(games)
   if ((!doubles, !isMask, !triangles, !price,!games)) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
@@ -96,9 +94,7 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
       });
       
   }
-  var i = 1,
-    firstGame,
-    lastGame;
+  var i = 1,firstGame,lastGame;
   firstGame = games[0].startGame;
   lastGame = games[0].startGame;
   const gamesEvent = [];
