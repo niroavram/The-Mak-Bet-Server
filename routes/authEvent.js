@@ -63,7 +63,8 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
   doubles = parseInt(doubles)
   triangles = parseInt(triangles)
   price = parseInt(price)
-  if ((!doubles, !isMask, !triangles, !price,!mygames)) {
+  const games = mygames
+  if ((!doubles, !isMask, !triangles, !price,!games)) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
   if (!isActive) {
@@ -98,10 +99,10 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
   var i = 1,
     firstGame,
     lastGame;
-  firstGame = mygames[0].startGame;
-  lastGame = mygames[0].startGame;
+  firstGame = games[0].startGame;
+  lastGame = games[0].startGame;
   const gamesEvent = [];
-  while (i < mygames.length) {
+  while (i < games.length) {
     const {
       homeTeam,
       awayTeam,
@@ -110,7 +111,7 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
       gameApi,
       bet,
       startGame,
-    } = mygames[i];
+    } = games[i];
     var game = new GameEvent({
       homeTeam,
       awayTeam,
