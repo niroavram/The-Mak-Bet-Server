@@ -10,61 +10,60 @@ const GameEvent = mongoose.model("GameEvent");
 // mongoose.set("useFindAndModify", false);
 const requireLogin = require("../middleware/requireLogin");
 
-const games = [
-  {
-    homeTeam: "Fulham",
-    awayTeam: "Arsenal",
-    startHomeTeam: 0,
-    startAwayTeam: 0,
-    startGame: "2017-04-25T06:23:36.510Z",
-    gameApi: "60d9d38845165620ec6df5bc",
-    bet: [0, 0, 0],
-  },
-  {
-    homeTeam: "Fulham",
-    awayTeam: "Arsenal",
-    startHomeTeam: 0,
-    startAwayTeam: 0,
-    startGame: "2017-04-25T06:23:36.510Z",
-    gameApi: "60d9d38845165620ec6df5bc",
-    bet: [0, 0, 0],
-  },
-  {
-    homeTeam: "Fulham",
-    awayTeam: "Arsenal",
-    startHomeTeam: 0,
-    startAwayTeam: 0,
-    startGame: "2017-04-25T06:23:36.510Z",
-    gameApi: "60d9d38845165620ec6df5bc",
-    bet: [0, 0, 0],
-  },
-  {
-    homeTeam: "First",
-    awayTeam: "Arsenal",
-    startHomeTeam: 0,
-    startAwayTeam: 0,
-    startGame: "2016-04-25T06:23:36.510Z",
-    gameApi: "60d9d38845165620ec6df5bc",
-    bet: [0, 0, 0],
-  },
-  {
-    homeTeam: "Last",
-    awayTeam: "Arsenal",
-    startHomeTeam: 0,
-    startAwayTeam: 0,
-    startGame: "2022-04-25T06:23:36.510Z",
-    gameApi: "60d9d38845165620ec6df5bc",
-    bet: [0, 0, 0],
-  },
-];
+// const games = [
+//   {
+//     homeTeam: "Fulham",
+//     awayTeam: "Arsenal",
+//     startHomeTeam: 0,
+//     startAwayTeam: 0,
+//     startGame: "2017-04-25T06:23:36.510Z",
+//     gameApi: "60d9d38845165620ec6df5bc",
+//     bet: [0, 0, 0],
+//   },
+//   {
+//     homeTeam: "Fulham",
+//     awayTeam: "Arsenal",
+//     startHomeTeam: 0,
+//     startAwayTeam: 0,
+//     startGame: "2017-04-25T06:23:36.510Z",
+//     gameApi: "60d9d38845165620ec6df5bc",
+//     bet: [0, 0, 0],
+//   },
+//   {
+//     homeTeam: "Fulham",
+//     awayTeam: "Arsenal",
+//     startHomeTeam: 0,
+//     startAwayTeam: 0,
+//     startGame: "2017-04-25T06:23:36.510Z",
+//     gameApi: "60d9d38845165620ec6df5bc",
+//     bet: [0, 0, 0],
+//   },
+//   {
+//     homeTeam: "First",
+//     awayTeam: "Arsenal",
+//     startHomeTeam: 0,
+//     startAwayTeam: 0,
+//     startGame: "2016-04-25T06:23:36.510Z",
+//     gameApi: "60d9d38845165620ec6df5bc",
+//     bet: [0, 0, 0],
+//   },
+//   {
+//     homeTeam: "Last",
+//     awayTeam: "Arsenal",
+//     startHomeTeam: 0,
+//     startAwayTeam: 0,
+//     startGame: "2022-04-25T06:23:36.510Z",
+//     gameApi: "60d9d38845165620ec6df5bc",
+//     bet: [0, 0, 0],
+//   },
+// ];
 
 Router.post("/create-newevent",requireLogin,(req, res) => {
-  const { isMask, doubles, triangles, price, isActive, group_id } = req.body;
+  const { isMask, doubles, triangles, price, isActive, group_id,games } = req.body;
   doubles = parseInt(doubles)
   triangles = parseInt(triangles)
   price = parseInt(price)
-  console.log( isMask, doubles, triangles, price, isActive, group_id )
-  if ((!doubles, !isMask, !triangles, !price)) {
+  if ((!doubles, !isMask, !triangles, !price,!games)) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
   if (!isActive) {
