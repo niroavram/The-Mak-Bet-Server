@@ -122,7 +122,7 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
       startGame,
     });
     game.save().catch((err) => {
-      console.log(err);
+      res.status(422).json({ error: " error hereeeeeeeeee"})
     });
     gamesEvent.push(game);
     if (firstGame > startGame) {
