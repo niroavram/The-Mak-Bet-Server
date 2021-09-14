@@ -143,7 +143,7 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
     .then((result_event) => {
       console.log(result_event)
       TotoGame.findOneAndUpdate(
-        { group_id: group_id },
+        { isActive: true },
         {
           $push: { events: result_event },
         },
