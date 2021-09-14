@@ -3,6 +3,8 @@ const Router = express.Router();
 const mongoose = require("mongoose");
 const TotoGroup = mongoose.model("TotoGroup");
 // mongoose.set("useFindAndModify", false);
+const TotoGame = mongoose.model("TotoGame");
+
 const requireLogin = require('../middleware/requireLogin')
 
 Router.post("/create-toto-group",requireLogin, (req, res) => {
@@ -59,27 +61,16 @@ Router.post("/create-toto-group",requireLogin, (req, res) => {
       
   });
 
-  Router.post("/create-toto-game",requireLogin, (req, res) => {
-    const {name,isPublic, code} = req.body;
-    if (!name , !code) {
-      return res.status(422).json({ error: "Please add all the fields" });
-    }
-    const totoGroup = new TotoGroup({
-      name,
-      code,
-      isPublic,
-      admins: [req.user],
-      users: [req.user]
-    });
-    totoGroup
-      .save()
-      .then((result) => {
-        console.log(result);
-        res.json({ totogroup: result });
+  Router.get("/get-toto-game",requireLogin, (req, res) => {
+    const {_id} = req.body;
+    TotoGame.find({group_id: _id})
+      .populate("events")
+      .then((leagues)=>{
+       res.json(leagues);
       })
       .catch((err) => {
-        console.log(err);
-      });
+         console.log(err);
+       });
   });
 
   Router.get("/my-toto-group", requireLogin, (req, res) => {

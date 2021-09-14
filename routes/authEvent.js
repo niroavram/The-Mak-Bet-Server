@@ -94,7 +94,7 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
       });
       
   }
-  var i = 1,firstGame,lastGame;
+  var i = 0,firstGame,lastGame;
   firstGame = games[0].startGame;
   lastGame = games[0].startGame;
   const gamesEvent = [];
