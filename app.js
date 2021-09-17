@@ -42,7 +42,7 @@ app.use(authEvent,authLeague,authUserbets);
 
 // setInterval(function() {
 //   collectGamesApi();
-//   }, 1000*10,);
+//   }, 1000*60*60,);
 //   setInterval(function() {
 //     updateGames();
 //     }, 1000*60*5,);
