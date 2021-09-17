@@ -58,7 +58,7 @@ const gameEvents = [
   ];
 
 Router.put("/create-userbets", requireLogin, (req, res) => {
-  const { mask, triangles, doubles, eventId,gameEvents } = req.body;
+  const { mask, triangles, doubles, eventId,gameEvents } = req.body
   const bets = []  
   if (!mask) {
     return res.status(422).json({ error: "Please add all the fields" });
