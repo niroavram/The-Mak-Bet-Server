@@ -59,9 +59,8 @@ const requireLogin = require("../middleware/requireLogin");
 // ];
 
 Router.post("/create-newevent",requireLogin,(req, res) => {
-  const { isMask, doubles, triangles, price, isActive, group_id,mygames } = req.body;
+  const { isMask, doubles, triangles, price, isActive, group_id,mygames,totogame_id } = req.body;
   const games = mygames
-  console.log(games)
   if ((!doubles, !isMask, !triangles, !price,!games)) {
     return res.status(422).json({ error: "Please add all the fields" });
   }
@@ -74,6 +73,7 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
     totogame
       .save()
       .then((result) => {
+        totogame_id=result._id
         TotoGroup.findOneAndUpdate(
           { _id: group_id },
           {
@@ -93,6 +93,8 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
         console.log(err);
       });
       
+  }else{
+
   }
   var i = 0,firstGame,lastGame;
   firstGame = games[0].startGame;
@@ -141,9 +143,9 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
   event
     .save()
     .then((result_event) => {
-      console.log(result_event)
+      event 
       TotoGame.findOneAndUpdate(
-        { isActive: true },
+        { _id: totogame_id },
         {
           $push: { events: result_event },
         },
