@@ -59,42 +59,10 @@ const requireLogin = require("../middleware/requireLogin");
 // ];
 
 Router.post("/create-newevent",requireLogin,(req, res) => {
-  const { isMask, doubles, triangles, price, isActive, group_id,mygames,totogame_id } = req.body;
-  const games = mygames
+  const { isMask, doubles, triangles, price,mygames,totogame_id } = req.body;
+  const games =mygames
   if ((!doubles, !isMask, !triangles, !price,!games)) {
     return res.status(422).json({ error: "Please add all the fields" });
-  }
-  if (!isActive) {
-    var round = 1;
-    const totogame = new TotoGame({
-      round,
-      group_id
-    });
-    totogame
-      .save()
-      .then((result) => {
-        totogame_id=result._id
-        TotoGroup.findOneAndUpdate(
-          { _id: group_id },
-          {
-            $push: { totoGames: result._id },
-          },
-          { new: true },
-          (err, doc) => {
-            if (err) {
-              console.log("TotoGrouo is wrong");
-            } else {
-              console.log("Hapyy");
-            }
-          }
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      
-  }else{
-
   }
   var i = 0,firstGame,lastGame;
   firstGame = games[0].startGame;
@@ -163,6 +131,39 @@ Router.post("/create-newevent",requireLogin,(req, res) => {
     .catch((err) => {
       res.json(err);
     });
+});
+
+Router.post("/create-totogame",requireLogin,(req, res) => {
+  const {  group_id } = req.body;
+  if ((!group_id)) {
+    return res.status(422).json({ error: "Please add all the fields" });
+  }
+    const totogame = new TotoGame({
+      group_id
+    });
+    totogame
+      .save()
+      .then((result) => { 
+        TotoGroup.findOneAndUpdate(
+          { _id: group_id },
+          {
+            $push: { totoGames: result },
+          },
+          { new: true },
+          (err, doc) => {
+            if (err) {
+              res.json(err);
+            } else {
+              res.json(doc)
+            }
+          }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
 });
 
 
