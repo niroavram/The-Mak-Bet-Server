@@ -7,35 +7,12 @@ const Event = mongoose.model("Event");
 // mongoose.set("useFindAndModify", false);
 const requireLogin = require('../middleware/requireLogin')
 
-Router.post("/create-game-event",requireLogin, (req, res) => {
-    const {homeTeam,awayTeam, startHomeTeam,startAwayTeam,startGame} = req.body;
-    if (!homeTeam , !awayTeam, !startHomeTeam, !startAwayTeam, !startGame) {
-      return res.status(422).json({ error: "Please add all the fields" });
-    }
-    const GameE = new GameEvent({
-      homeTeam,
-      awayTeam,
-      startHomeTeam,
-      startAwayTeam,
-      startGame,
-      bet: [0,0,0]
-    });
-    GameE
-      .save()
-      .then((result) => {
-        console.log(result);
-        res.json({ gameevent: result });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
 
   Router.get("/lastEvent", requireLogin, (req, res) => {
     const {eventId}= req.body
     Event.find({_id: eventId})
     .populate({path:"gamesEvent",populate:{path: "gameApi"}})
-    .populate({path:"Userbets"})
+    .populate({path:"userBets"})
       .then((event)=>{
         res.json(event);
       })
