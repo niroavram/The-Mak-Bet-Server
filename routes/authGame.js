@@ -2,7 +2,7 @@ const express = require("express");
 const Router = express.Router();
 const mongoose = require("mongoose");
 const GameEvent = mongoose.model("GameEvent");
-const Game = mongoose.model("Game");
+const Event = mongoose.model("Event");
 
 // mongoose.set("useFindAndModify", false);
 const requireLogin = require('../middleware/requireLogin')
