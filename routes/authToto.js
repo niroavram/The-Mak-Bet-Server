@@ -75,8 +75,9 @@ Router.post("/create-toto-group",requireLogin, (req, res) => {
 
   Router.get("/my-toto-group", requireLogin, (req, res) => {
     TotoGroup.find({ myUsers: req.user })
-      .populate("myUsers")
-      .populate("totoGames")
+    .populate("myUsers")
+    .populate("admins")
+    .populate({path: "totoGames", populate:{path:"events",populate:{path:"gamesEvent",populate:{path: "gameApi"}}}})
       .then((totogroup) => {
         res.json({ totogroup });
       })
