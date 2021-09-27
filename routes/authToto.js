@@ -84,9 +84,12 @@ Router.post("/create-toto-group",requireLogin, (req, res) => {
         console.log(err);
       });
   });
-  Router.get("/group-page", requireLogin, (req, res) => {
-    TotoGroup.find({ myUsers: req.user })
-      .populate("myUsers", "_id name")
+  Router.get("/group", requireLogin, (req, res) => {
+    const {group_id} = req.body
+    TotoGroup.find({ _id: group_id })
+      .populate("myUsers")
+      .populate("admins")
+      .populate("totoGames")
       .then((totogroup) => {
         res.json({ totogroup });
       })
