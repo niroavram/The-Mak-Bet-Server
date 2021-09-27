@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const GameEvent = mongoose.model("GameEvent");
 const Event = mongoose.model("Event");
 
-// mongoose.set("useFindAndModify", false);
 const requireLogin = require('../middleware/requireLogin')
 
 
