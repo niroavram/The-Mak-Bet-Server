@@ -31,9 +31,11 @@ Router.post("/create-game-event",requireLogin, (req, res) => {
       });
   });
 
-  Router.get("/userbets", requireLogin, (req, res) => {
+  Router.get("/lastEvent", requireLogin, (req, res) => {
     const {eventId}= req.body
     Event.find({_id: eventId})
+    .populate({path:"gamesEvent",populate:{path: "gameApi"}})
+    .populate({path:"Userbets"})
       .then((event)=>{
         res.json(event);
       })
@@ -42,29 +44,8 @@ Router.post("/create-game-event",requireLogin, (req, res) => {
           });
        
   });
-  Router.get("/pregames", requireLogin, (req, res) => {
-    const {eventId}= req.body
-    Game.find({status: "prematch"})
-      .then((event)=>{
-        res.json(event);
-      })
-         .catch((err) => {
-            console.log(err);
-          });
-       
-  });
-  Router.get("/gameByID", requireLogin, (req, res) => {
-    const {gameID}= req.body
-    console.log(gameID)
-    Game.findById(gameID)
-      .then((event)=>{
-        res.json(event);
-      })
-         .catch((err) => {
-            console.log(err);
-          });
-       
-  });
+
+
 
 
 
