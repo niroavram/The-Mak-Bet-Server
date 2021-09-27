@@ -12,7 +12,7 @@ const requireLogin = require('../middleware/requireLogin')
     const {eventId}= req.body
     Event.find({_id: eventId})
     .populate({path:"gamesEvent",populate:{path: "gameApi"}})
-    .populate({path:"userBets"})
+    .populate({path:"userBets",populate:{path: "gameEvents"}})
       .then((event)=>{
         res.json(event);
       })
