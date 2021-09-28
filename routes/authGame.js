@@ -21,6 +21,20 @@ const requireLogin = require('../middleware/requireLogin')
        
   });
 
+  Router.get("/totoGame", (req, res) => {
+    const {eventId}= req.body
+    Event.find({_id: eventId})
+    .populate({path:"gamesEvent",populate:{path: "gameApi"}})
+    .populate({path:"userBets",populate:{path: "gameEvents"}})
+      .then((event)=>{
+        res.json(event);
+      })
+         .catch((err) => {
+            console.log(err);
+          });
+       
+  });
+
 
 
 
