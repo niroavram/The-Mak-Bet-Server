@@ -7,7 +7,7 @@ const Event = mongoose.model("Event");
 const requireLogin = require('../middleware/requireLogin')
 
 
-  Router.get("/lastEvent", requireLogin, (req, res) => {
+  Router.get("/lastEvent", (req, res) => {
     const {eventId}= req.body
     Event.find({_id: eventId})
     .populate({path:"gamesEvent",populate:{path: "gameApi"}})
