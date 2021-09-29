@@ -19,7 +19,6 @@ exports.updateGames = function () {
   });
   reqLive.end(function (res) {
     const gamesInplay = [];
-    var id = 140;
 
     if (res.error) throw new Error(res.error);
     var games = res.body.response;
@@ -78,6 +77,5 @@ exports.updateGames = function () {
         );
       }
     });
-    FinishGames(gamesInplay);
   });
 };

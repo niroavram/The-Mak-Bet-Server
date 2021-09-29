@@ -42,13 +42,13 @@ app.use(authEvent,authLeague,authUserbets);
 
 setInterval(function() {
   collectGamesApi();
-  }, 1000*40,);
-//   setInterval(function() {
-//     updateGames();
-//     }, 1000*60*5,);
-  // setInterval(function() {
-  //   finishGames();
-  //   }, 1000*15,);
+  }, 1000*60*60*24,);
+  setInterval(function() {
+    updateGames();
+    }, 1000*60*4,);
+  setInterval(function() {
+    finishGames();
+    }, 1000*60*3,);
   // let S="id,name,age\n1,Jack,68"
   // let C="age"
   // Testing()

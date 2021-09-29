@@ -4,22 +4,13 @@ const Game = mongoose.model("Game");
 var unirest = require("unirest");
 const api_url = "https://api-football-v1.p.rapidapi.com/v3/fixtures";
 
-exports.FinishGames = function (gamesInplay) {
+exports.FinishGames = function () {
   Game.find({ status: "live" }).then((games) => {
-    var isEqual = false;
-    gamesInplay.length === games.length ? (isEqual = true) : "";
-    if (!isEqual) {
       for (var i = 0; i < games.length; i++) {
-        var l = 0;
-        var isGameEqual = false;
-        while (l < gamesInplay.length && !isGameEqual) {
-          games[i]._id == gamesInplay[l] ? (isGameEqual = true) : l++;
-        }
-        if (!isGameEqual) {
+        if(games[i].lastUpdate>Date.now+1000*60*5+1000){
           finalGameUpdate(games[i]);
         }
       }
-    }
   });
 
   function cornerS(home, away) {
