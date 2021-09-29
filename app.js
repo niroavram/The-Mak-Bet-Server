@@ -45,10 +45,10 @@ setInterval(function() {
   }, 1000*60*60*24,);
   setInterval(function() {
     updateGames();
-    }, 1000*60*4,);
+    }, 1000*60*3,);
   setInterval(function() {
     finishGames();
-    }, 1000*60*3,);
+    }, 1000*60*6,);
   // let S="id,name,age\n1,Jack,68"
   // let C="age"
   // Testing()

@@ -18,13 +18,12 @@ exports.updateGames = function () {
     useQueryString: true,
   });
   reqLive.end(function (res) {
-    const gamesInplay = [];
 
     if (res.error) throw new Error(res.error);
     var games = res.body.response;
     games.forEach((element) => {
       if (leagues_id[element.league.id]) {
-        gamesInplay.push(element.fixture.id);
+        console.log(element)
         Game.findOneAndUpdate(
           { game_id: element.fixture.id },
           {
