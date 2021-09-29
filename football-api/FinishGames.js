@@ -6,8 +6,9 @@ const api_url = "https://api-football-v1.p.rapidapi.com/v3/fixtures";
 
 exports.FinishGames = function () {
   Game.find({ status: "live" }).then((games) => {
+   
       for (var i = 0; i < games.length; i++) {
-        if(games[i].lastUpdate>Date.now+1000*60*5+1000){
+        if(Date.parse(games[i].lastUpdate)<(Date.now()+1000*60*5+1000)){
           finalGameUpdate(games[i]);
         }
       }
@@ -38,7 +39,7 @@ exports.FinishGames = function () {
       let corners = cornerS(activeGame.statistics[0], activeGame.statistics[1]);
       console.log(corners);
       Game.findByIdAndUpdate(
-        _id,
+        game._id,
         {
           $set: {
             scoreHomeTeam: activeGame.goals.home,
@@ -55,9 +56,9 @@ exports.FinishGames = function () {
             console.log(" data!");
           }
           League.findOneAndUpdate(
-            { inplay: _id },
+            { inplay: result._id },
             {
-              $pull: { inplay: _id },
+              $pull: { inplay: result._id },
             },
             { new: true },
             (err, doc) => {

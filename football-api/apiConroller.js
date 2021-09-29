@@ -84,12 +84,7 @@ const {Testing} = require('./Testing')
   }
 
   exports.finishGames = async () => {
-	let isMeleh =true	
-	if(isMeleh){
-		console.log("True")
-	}else{
-		console.lof("false")
-	}
+FinishGames();
 }	
 exports.Testing = async () => {
 	Testing()
