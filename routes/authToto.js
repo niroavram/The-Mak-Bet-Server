@@ -44,20 +44,28 @@ Router.post("/create-toto-group",requireLogin, (req, res) => {
     if(!code){
       return res.status(422).json({ error: "Please enter the code group" });
     }
-    TotoGroup.findOneAndUpdate({code: code},
-      {
-        $push: { myUsers: req.user._id },
-        },
-        {
-        new: true,
-        })
-        .exec((err, result) => {
-          if (err) {
-          return res.status(422).json({ error: err });
-          } else {
-            res.status(200).json({ totogroup: result,message: "Mazal Tov You are in the group" });
-          }
-        });
+    TotoGroup.findOne({code: code })
+    .then((totogroup)=>{
+        console.log(totogroup.myUsers.includes(req.user._id),totogroup.myUsers,req.user._id)
+        if(totogroup.myUsers.includes(req.user._id)){
+            return res.status(422).json({error:"User already inside this group"})
+        }
+        TotoGroup.findOneAndUpdate({code: code},
+          {
+            $push: { myUsers: req.user._id },
+            },
+            {
+            new: true,
+            })
+            .exec((err, result) => {
+              if (err) {
+              return res.status(422).json({ error: err });
+              } else {
+                res.status(200).json({ totogroup: result,message: "Mazal Tov You are in the group" });
+              }
+            });
+    })
+   
       
   });
 

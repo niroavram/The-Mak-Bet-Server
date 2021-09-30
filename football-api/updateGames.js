@@ -41,7 +41,7 @@ exports.updateGames = function () {
             }
             if (result) {
               console.log(result);
-              if (Date.now() - result.dateGame < 1000 * 60 * 5) {
+              if (Date.now() - Date.parse(result.dateGame) < 1000 * 60 * 3) {
                 League.findOneAndUpdate(
                   { upcoming: result._id },
                   {
