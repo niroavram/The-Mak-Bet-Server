@@ -8,7 +8,7 @@ exports.FinishGames = function () {
   Game.find({ status: "live" }).then((games) => {
    
       for (var i = 0; i < games.length; i++) {
-        if(Date.parse(games[i].lastUpdate)<(Date.now()+1000*60*3+1000)){
+        if(Date.parse(games[i].lastUpdate)<(Date.now()+1000*60*5+1000)){
           finalGameUpdate(games[i]);
         }
       }
